@@ -6,4 +6,4 @@
 
 ## Quick Start
 
-See [here](https://kcl-lang.io/docs/user_docs/guides/working-with-k8s/) for more documents.
+See [here](https://www.kcl-lang.io/docs/user_docs/guides/working-with-k8s/overview/) for more documents.
