@@ -14,16 +14,18 @@ kubernetesRender = lambda a: app.App {
             replicas = a.replicas
             selector.matchLabels = a.labels
             template.metadata.labels = a.labels
-            template.spec.containers = [{
-                name = n
-                image = c.image
-                command = c.command
-                args = c.args
-                env = c.env
-                volumeMounts = c.volumes
-                resources: c.resources
-                ports = c.ports
-            } for n, c in a.containers]
+            template.spec.containers = [
+                {
+                    name = n
+                    image = c.image
+                    command = c.command
+                    args = c.args
+                    env = c.env
+                    volumeMounts = c.volumes
+                    resources: c.resources
+                    ports = c.ports
+                } for n, c in a.containers
+            ]
         }
     }
     # Construct the service manifest.
@@ -39,7 +41,7 @@ kubernetesRender = lambda a: app.App {
         }
     }
     # Returns Kubernetes manifests
-    [deployment]
+    [deployment, service]
 }
 
 manifests.yaml_stream(sum([kubernetesRender(a) for a in app.App.instances()], []))
