@@ -26,20 +26,10 @@ kubernetesRender = lambda a: app.App {
             } for name, c in a.containers]
         }
     }
+
     # Construct the service manifest.
-    service = {
-        apiVersion = "v1"
-        kind = "Service"
-        metadata.name = a.name
-        metadata.labels = a.labels
-        spec = {
-            type = a.service?.$type
-            selector = a.labels
-            ports = a.service?.ports
-        }
-    }
     # Returns Kubernetes manifests
-    [deployment, service]
+    [deployment]
 }
 
 manifests.yaml_stream(sum([kubernetesRender(a) for a in app.App.instances()], []))
